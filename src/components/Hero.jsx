@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 // ── Animation variants ──────────────────────────────────────────
@@ -184,92 +184,6 @@ function EmrMarquee() {
   )
 }
 
-// ── Constellation canvas ─────────────────────────────────────────
-function ConstellationCanvas() {
-  const ref = useRef(null)
-  useEffect(() => {
-    const canvas = ref.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let raf
-
-    const resize = () => {
-      const dpr = window.devicePixelRatio || 1
-      canvas.width  = canvas.offsetWidth  * dpr
-      canvas.height = canvas.offsetHeight * dpr
-      ctx.scale(dpr, dpr)
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    const N = 58
-    const pts = Array.from({ length: N }, () => ({
-      x:  Math.random() * canvas.offsetWidth,
-      y:  Math.random() * canvas.offsetHeight,
-      vx: (Math.random() - 0.5) * 0.36,
-      vy: (Math.random() - 0.5) * 0.36,
-      r:  Math.random() * 1.1 + 0.4,
-      ph: Math.random() * Math.PI * 2,
-    }))
-
-    const MAX_D = 148
-
-    const tick = () => {
-      const W = canvas.offsetWidth, H = canvas.offsetHeight
-      ctx.clearRect(0, 0, W, H)
-      const t = performance.now() * 0.001
-
-      // connections
-      for (let i = 0; i < N; i++) {
-        for (let j = i + 1; j < N; j++) {
-          const dx = pts[i].x - pts[j].x
-          const dy = pts[i].y - pts[j].y
-          const d2 = dx * dx + dy * dy
-          if (d2 < MAX_D * MAX_D) {
-            const alpha = (1 - Math.sqrt(d2) / MAX_D) * 0.18
-            ctx.beginPath()
-            ctx.moveTo(pts[i].x, pts[i].y)
-            ctx.lineTo(pts[j].x, pts[j].y)
-            ctx.strokeStyle = `rgba(99,102,241,${alpha.toFixed(3)})`
-            ctx.lineWidth = 0.65
-            ctx.stroke()
-          }
-        }
-      }
-
-      // dots
-      pts.forEach(p => {
-        const pulse = 0.45 + 0.4 * Math.sin(t * 1.3 + p.ph)
-        const gr = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 10)
-        gr.addColorStop(0, `rgba(129,140,248,${(pulse * 0.3).toFixed(3)})`)
-        gr.addColorStop(1, 'rgba(129,140,248,0)')
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r * 10, 0, Math.PI * 2)
-        ctx.fillStyle = gr
-        ctx.fill()
-
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(165,180,252,${pulse.toFixed(3)})`
-        ctx.fill()
-
-        p.x += p.vx; p.y += p.vy
-        if (p.x < -12) p.x = W + 12; else if (p.x > W + 12) p.x = -12
-        if (p.y < -12) p.y = H + 12; else if (p.y > H + 12) p.y = -12
-      })
-
-      raf = requestAnimationFrame(tick)
-    }
-
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) tick()
-    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize) }
-  }, [])
-
-  return (
-    <canvas ref={ref} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }} />
-  )
-}
-
 // ── Hero ─────────────────────────────────────────────────────────
 const TITLE_LINES = [
   ['The', 'billing'],
@@ -312,7 +226,7 @@ export default function Hero() {
   const allWords = TITLE_LINES.flat()
 
   return (
-    <section style={{ background: 'linear-gradient(140deg, #05091b 0%, #0a1023 55%, #170f3c 100%)', minHeight: '100vh', paddingTop: 64, display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
+    <section style={{ background: 'linear-gradient(140deg, #020711 0%, #060c1c 55%, #0c0722 100%)', minHeight: '100vh', paddingTop: 64, display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
 
       {/* ─── CSS keyframes: transform-only, opacity never hits 0 ─── */}
       <style>{`
@@ -341,50 +255,72 @@ export default function Hero() {
           50%     { transform: translateY(-50px) scaleX(1.12); }
         }
         @keyframes lumenDotPulse {
-          0%,100% { opacity: 0.42; }
-          50%     { opacity: 0.72; }
+          0%,100% { opacity: 0.22; }
+          50%     { opacity: 0.40; }
         }
         @keyframes lumenRingCW  { to { transform: rotate( 360deg); } }
         @keyframes lumenRingCCW { to { transform: rotate(-360deg); } }
       `}</style>
 
-      {/* Layer 1 — constellation canvas */}
-      <ConstellationCanvas />
-
-      {/* Layer 2 — dot grid */}
+      {/* Layer 1 — dot grid */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px)',
+        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
         backgroundSize: '36px 36px',
         WebkitMaskImage: 'radial-gradient(ellipse 90% 80% at 50% 40%, black 25%, transparent 100%)',
         maskImage: 'radial-gradient(ellipse 90% 80% at 50% 40%, black 25%, transparent 100%)',
         animation: 'lumenDotPulse 9s ease-in-out infinite',
       }} />
 
-      {/* Layer 3 — rotating rings (structural depth) */}
+      {/* Layer 2 — rotating rings */}
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 700, height: 700, zIndex: 0, pointerEvents: 'none' }}>
-        <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '1px solid rgba(99,102,241,0.16)', boxShadow: '0 0 40px rgba(99,102,241,0.06) inset', animation: 'lumenRingCW 80s linear infinite', willChange: 'transform' }} />
+        <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '1px solid rgba(99,102,241,0.08)', animation: 'lumenRingCW 80s linear infinite', willChange: 'transform' }} />
       </div>
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 460, height: 460, zIndex: 0, pointerEvents: 'none' }}>
-        <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '1px solid rgba(56,189,248,0.12)', animation: 'lumenRingCCW 55s linear infinite', willChange: 'transform' }} />
+        <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '1px solid rgba(56,189,248,0.07)', animation: 'lumenRingCCW 55s linear infinite', willChange: 'transform' }} />
       </div>
       <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 260, height: 260, zIndex: 0, pointerEvents: 'none' }}>
-        <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '1px solid rgba(168,85,247,0.1)', animation: 'lumenRingCW 35s linear infinite', willChange: 'transform' }} />
+        <div style={{ width: '100%', height: '100%', borderRadius: '50%', border: '1px solid rgba(168,85,247,0.06)', animation: 'lumenRingCW 35s linear infinite', willChange: 'transform' }} />
       </div>
 
-      {/* Layer 4 — CSS background orbs (wide, blurred colour fill) */}
-      <div style={{ position: 'absolute', top: '-15%', left: '22%', width: '68%', height: '78%', background: 'radial-gradient(circle, rgba(99,102,241,0.6) 0%, transparent 70%)', filter: 'blur(88px)', pointerEvents: 'none', zIndex: 0, opacity: 0.40, willChange: 'transform', animation: 'lumenOrb1 9s ease-in-out infinite' }} />
-      <div style={{ position: 'absolute', bottom: '-2%', right: '-8%',  width: '48%', height: '62%', background: 'radial-gradient(circle, rgba(56,189,248,0.5) 0%, transparent 70%)',  filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0, opacity: 0.28, willChange: 'transform', animation: 'lumenOrb2 11s ease-in-out infinite 2s' }} />
-      <div style={{ position: 'absolute', top: '32%',  left: '-12%',    width: '40%', height: '58%', background: 'radial-gradient(circle, rgba(124,58,237,0.45) 0%, transparent 70%)', filter: 'blur(72px)', pointerEvents: 'none', zIndex: 0, opacity: 0.22, willChange: 'transform', animation: 'lumenOrb3 13s ease-in-out infinite 5s' }} />
-      <div style={{ position: 'absolute', top: '52%',  left: '48%',     width: '36%', height: '50%', background: 'radial-gradient(circle, rgba(16,185,129,0.4) 0%, transparent 70%)',  filter: 'blur(64px)', pointerEvents: 'none', zIndex: 0, opacity: 0.20, willChange: 'transform', animation: 'lumenOrb4 15s ease-in-out infinite 1s' }} />
+      {/* Layer 3 — CSS background orbs */}
+      <div style={{ position: 'absolute', top: '-15%', left: '22%', width: '68%', height: '78%', background: 'radial-gradient(circle, rgba(99,102,241,0.55) 0%, transparent 70%)', filter: 'blur(100px)', pointerEvents: 'none', zIndex: 0, opacity: 0.18, willChange: 'transform', animation: 'lumenOrb1 9s ease-in-out infinite' }} />
+      <div style={{ position: 'absolute', bottom: '-2%', right: '-8%',  width: '48%', height: '62%', background: 'radial-gradient(circle, rgba(56,189,248,0.45) 0%, transparent 70%)',  filter: 'blur(90px)',  pointerEvents: 'none', zIndex: 0, opacity: 0.14, willChange: 'transform', animation: 'lumenOrb2 11s ease-in-out infinite 2s' }} />
+      <div style={{ position: 'absolute', top: '32%',  left: '-12%',    width: '40%', height: '58%', background: 'radial-gradient(circle, rgba(124,58,237,0.4) 0%, transparent 70%)',  filter: 'blur(80px)',  pointerEvents: 'none', zIndex: 0, opacity: 0.12, willChange: 'transform', animation: 'lumenOrb3 13s ease-in-out infinite 5s' }} />
+      <div style={{ position: 'absolute', top: '52%',  left: '48%',     width: '36%', height: '50%', background: 'radial-gradient(circle, rgba(16,185,129,0.35) 0%, transparent 70%)', filter: 'blur(72px)',  pointerEvents: 'none', zIndex: 0, opacity: 0.10, willChange: 'transform', animation: 'lumenOrb4 15s ease-in-out infinite 1s' }} />
 
-      {/* Layer 5 — Framer Motion mouse-parallax orbs (spring physics, only x/y animated) */}
-      <motion.div style={{ x: p1x, y: p1y, position: 'absolute', top: '5%',  left: '30%', width: '55%', height: '65%', background: 'radial-gradient(circle, rgba(99,102,241,0.55) 0%, transparent 70%)', filter: 'blur(80px)', opacity: 0.34, pointerEvents: 'none', zIndex: 0 }} />
-      <motion.div style={{ x: p2x, y: p2y, position: 'absolute', top: '38%', right: '-4%', width: '44%', height: '52%', background: 'radial-gradient(circle, rgba(56,189,248,0.5) 0%, transparent 70%)',  filter: 'blur(78px)', opacity: 0.26, pointerEvents: 'none', zIndex: 0 }} />
-      <motion.div style={{ x: p3x, y: p3y, position: 'absolute', top: '15%', left: '-6%', width: '36%', height: '46%', background: 'radial-gradient(circle, rgba(168,85,247,0.45) 0%, transparent 70%)', filter: 'blur(70px)', opacity: 0.20, pointerEvents: 'none', zIndex: 0 }} />
+      {/* Layer 4 — Framer Motion mouse-parallax orbs */}
+      <motion.div style={{ x: p1x, y: p1y, position: 'absolute', top: '5%',  left: '30%', width: '55%', height: '65%', background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, transparent 70%)', filter: 'blur(90px)', opacity: 0.16, pointerEvents: 'none', zIndex: 0 }} />
+      <motion.div style={{ x: p2x, y: p2y, position: 'absolute', top: '38%', right: '-4%', width: '44%', height: '52%', background: 'radial-gradient(circle, rgba(56,189,248,0.45) 0%, transparent 70%)',  filter: 'blur(85px)', opacity: 0.12, pointerEvents: 'none', zIndex: 0 }} />
+      <motion.div style={{ x: p3x, y: p3y, position: 'absolute', top: '15%', left: '-6%', width: '36%', height: '46%', background: 'radial-gradient(circle, rgba(168,85,247,0.4) 0%, transparent 70%)', filter: 'blur(75px)', opacity: 0.10, pointerEvents: 'none', zIndex: 0 }} />
 
-      {/* Layer 6 — aurora ribbon */}
-      <div style={{ position: 'absolute', top: '18%', left: '-30%', right: '-30%', height: '58%', background: 'linear-gradient(105deg, rgba(99,102,241,0.2) 0%, rgba(56,189,248,0.15) 28%, rgba(124,58,237,0.24) 55%, rgba(56,189,248,0.13) 78%, rgba(99,102,241,0.18) 100%)', filter: 'blur(74px)', pointerEvents: 'none', zIndex: 0, opacity: 0.55, willChange: 'transform', animation: 'lumenAurora 18s ease-in-out infinite' }} />
+      {/* Layer 5.5 — Framer Motion light beam sweeps
+          Key: opacity floor is 0.001 (never 0) so the GPU compositing layer
+          is pre-created at mount and never torn down → no white flash.
+          No filter:blur on these elements; gradient stops encode softness. */}
+      <motion.div
+        initial={{ opacity: 0.001, x: '-15%' }}
+        animate={{ opacity: [0.001, 0.13, 0.001], x: ['-15%', '122%'] }}
+        transition={{ duration: 7, ease: [0.25, 0.1, 0.25, 1], repeat: Infinity, repeatDelay: 10 }}
+        style={{
+          position: 'absolute', top: '-5%', left: 0, width: '24%', height: '110%',
+          background: 'linear-gradient(105deg, transparent 0%, transparent 20%, rgba(99,102,241,0) 30%, rgba(99,102,241,0.08) 42%, rgba(129,140,248,0.17) 50%, rgba(99,102,241,0.08) 58%, rgba(99,102,241,0) 70%, transparent 80%, transparent 100%)',
+          skewX: -12, pointerEvents: 'none', zIndex: 0, willChange: 'opacity, transform',
+        }}
+      />
+      <motion.div
+        initial={{ opacity: 0.001, x: '-15%' }}
+        animate={{ opacity: [0.001, 0.08, 0.001], x: ['-15%', '122%'] }}
+        transition={{ duration: 9, ease: [0.25, 0.1, 0.25, 1], repeat: Infinity, repeatDelay: 7, delay: 5 }}
+        style={{
+          position: 'absolute', top: '12%', left: 0, width: '15%', height: '76%',
+          background: 'linear-gradient(105deg, transparent 0%, transparent 20%, rgba(56,189,248,0) 30%, rgba(56,189,248,0.07) 42%, rgba(56,189,248,0.13) 50%, rgba(56,189,248,0.07) 58%, rgba(56,189,248,0) 70%, transparent 80%, transparent 100%)',
+          skewX: -12, pointerEvents: 'none', zIndex: 0, willChange: 'opacity, transform',
+        }}
+      />
+
+      {/* Layer 5 — aurora ribbon */}
+      <div style={{ position: 'absolute', top: '18%', left: '-30%', right: '-30%', height: '58%', background: 'linear-gradient(105deg, rgba(99,102,241,0.14) 0%, rgba(56,189,248,0.1) 28%, rgba(124,58,237,0.16) 55%, rgba(56,189,248,0.09) 78%, rgba(99,102,241,0.12) 100%)', filter: 'blur(80px)', pointerEvents: 'none', zIndex: 0, opacity: 0.45, willChange: 'transform', animation: 'lumenAurora 18s ease-in-out infinite' }} />
 
       {/* Layer 7 — edge vignette */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 115% 105% at 50% 50%, transparent 42%, rgba(5,9,27,0.8) 100%)' }} />
@@ -397,9 +333,17 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE }}
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '5px 14px', background: 'rgba(99,102,241,0.14)', border: '1px solid rgba(99,102,241,0.32)', borderRadius: 100, fontSize: 11, fontWeight: 700, color: '#a5b4fc', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 28 }}
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.35)', borderRadius: 100, fontSize: 11, fontWeight: 700, color: '#a5b4fc', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 28, backdropFilter: 'blur(8px)' }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6ee7b7', display: 'inline-block' }} />
+            {/* Pulsing live dot — tiny element, no blur filter → flash-free at opacity 0 */}
+            <span style={{ position: 'relative', width: 8, height: 8, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <motion.span
+                animate={{ scale: [1, 2.6], opacity: [0.6, 0] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
+                style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#6ee7b7' }}
+              />
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#6ee7b7', position: 'relative', flexShrink: 0 }} />
+            </span>
             AI-Native Medical Billing
           </motion.div>
 
@@ -493,7 +437,9 @@ export default function Hero() {
           </div>
 
           {/* Window */}
-          <div style={{ background: '#0f1829', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 16, overflow: 'hidden', boxShadow: '0 40px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(99,102,241,0.1)', minHeight: 380 }}>
+          <div style={{ background: '#0d1628', border: '1px solid rgba(99,102,241,0.18)', borderRadius: 16, overflow: 'hidden', boxShadow: '0 0 0 1px rgba(99,102,241,0.12), 0 24px 64px rgba(0,0,0,0.6), 0 0 80px rgba(99,102,241,0.14)', minHeight: 380, position: 'relative' }}>
+            {/* Top glow line */}
+            <div style={{ position: 'absolute', top: 0, left: '10%', right: '10%', height: 1, background: 'linear-gradient(90deg, transparent, rgba(129,140,248,0.6), transparent)', pointerEvents: 'none', zIndex: 2 }} />
             {/* Title bar */}
             <div style={{ background: '#1a2236', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 7, borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
               <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} />
