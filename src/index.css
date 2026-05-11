@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #060b17;
+  --surface: #0d1526;
+  --surface-2: #111e34;
+  --border: rgba(255,255,255,0.07);
+  --indigo: #4338ca;
+  --indigo-mid: #4f46e5;
+  --indigo-light: #6366f1;
+  --indigo-pale: #818cf8;
+  --sky: #0ea5e9;
+  --sky-light: #38bdf8;
+  --emerald: #10b981;
+  --emerald-light: #34d399;
+  --amber: #f59e0b;
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--white);
+  color: var(--gray-900);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.5); border-radius: 3px; }
+
+::selection { background: rgba(99,102,241,0.35); color: white; }
+
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font); cursor: pointer; border: none; outline: none; background: none; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+.gradient-text {
+  background: linear-gradient(120deg, var(--sky-light) 0%, var(--indigo-pale) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Shared section eyebrow */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--indigo-light);
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* Shared section title */
+.section-title {
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.12;
+  color: var(--gray-900);
+  margin-bottom: 18px;
+}
+
+.section-body {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--gray-500);
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+}
