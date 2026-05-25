@@ -36,7 +36,7 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 60, marginBottom: 60 }}>
           {/* Brand */}
           <div>
-            <div style={{ fontSize: 16, fontWeight: 900, letterSpacing: '0.08em', color: '#fff', marginBottom: 12 }}>LUMEN</div>
+            <div style={{ fontSize: 16, fontWeight: 900, letterSpacing: '0.08em', color: '#fff', marginBottom: 12 }}>RELIO</div>
             <div style={{ fontSize: 14, lineHeight: 1.7, color: 'rgba(255,255,255,0.38)' }}>
               End-to-end medical billing.<br />
               You treat the patient, we handle the rest.

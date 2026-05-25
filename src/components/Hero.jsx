@@ -199,7 +199,7 @@ export default function Hero() {
             marginBottom: 40, maxWidth: 540,
           }}
         >
-          Lumen manages coding, claims, and appeals from start to finish.
+          Relio manages coding, claims, and appeals from start to finish.
           You focus on patients — we handle the billing.
         </motion.p>
 

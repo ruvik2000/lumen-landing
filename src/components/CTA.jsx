@@ -29,7 +29,7 @@ export default function CTA() {
             <span className="gradient-text">money on the table?</span>
           </h2>
           <p style={{ fontSize: 18, lineHeight: 1.75, color: 'rgba(255,255,255,0.5)', marginBottom: 48, maxWidth: 520, margin: '0 auto 48px' }}>
-            Talk with a Lumen billing specialist. We'll audit your current collection rate — free — and show you exactly what you're missing.
+            Talk with a Relio billing specialist. We'll audit your current collection rate — free — and show you exactly what you're missing.
           </p>
 
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>

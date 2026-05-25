@@ -41,7 +41,7 @@ export default function BuiltFor() {
               Across every<br />specialty and size
             </h2>
             <p style={{ fontSize: 16, lineHeight: 1.8, color: 'rgba(255,255,255,0.5)', marginBottom: 32 }}>
-              Whether you're a single-physician practice or a 20-provider group, Lumen scales
+              Whether you're a single-physician practice or a 20-provider group, Relio scales
               with you. Our coding models are trained on specialty-specific encounter patterns,
               so your documentation gets coded correctly from day one.
             </p>

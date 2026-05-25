@@ -8,14 +8,14 @@ const FAQS = [
   },
   {
     q: 'Do I need to change my EHR?',
-    a: 'No. Lumen integrates with your existing EHR via direct API or our secure connector. We support Epic, Athena, Kareo, eClinicalWorks, and 30+ others. If you use a system we haven\'t connected to yet, we\'ll build the integration.',
+    a: 'No. Relio integrates with your existing EHR via direct API or our secure connector. We support Epic, Athena, Kareo, eClinicalWorks, and 30+ others. If you use a system we haven\'t connected to yet, we\'ll build the integration.',
   },
   {
     q: 'What happens if a claim is denied?',
-    a: 'Lumen automatically detects the denial, classifies the reason, and triggers an appeal workflow. For the vast majority of denials, we resubmit within minutes — without any action required from you. For complex cases, our certified billing team takes over within 4 hours.',
+    a: 'Relio automatically detects the denial, classifies the reason, and triggers an appeal workflow. For the vast majority of denials, we resubmit within minutes — without any action required from you. For complex cases, our certified billing team takes over within 4 hours.',
   },
   {
-    q: 'How is Lumen priced?',
+    q: 'How is Relio priced?',
     a: 'We charge a percentage of collections — typically 2.9–4.5% depending on your specialty, volume, and payer mix. There are no setup fees, no per-provider licenses, and no long-term contracts. You only pay when we get you paid.',
   },
   {
@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: 'Can I still have my own billing staff?',
-    a: 'Absolutely. Many practices use Lumen alongside an existing biller. Our portal gives your staff full visibility into claims, denials, and analytics — and they can override any AI-generated code if they prefer.',
+    a: 'Absolutely. Many practices use Relio alongside an existing biller. Our portal gives your staff full visibility into claims, denials, and analytics — and they can override any AI-generated code if they prefer.',
   },
 ]
 

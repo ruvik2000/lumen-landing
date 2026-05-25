@@ -18,7 +18,7 @@ export default function About() {
           {/* Left — statement */}
           <motion.div variants={fadeUp} initial="hidden" animate={inView ? 'visible' : 'hidden'}>
             <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--indigo-pale)', marginBottom: 20 }}>
-              Why Lumen
+              Why Relio
             </div>
             <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', color: '#fff', marginBottom: 24 }}>
               The billing system wasn't<br />built for independent doctors.
@@ -28,7 +28,7 @@ export default function About() {
               Independent practices end up using the same bloated tools — and paying for features they'll never need.
             </p>
             <p style={{ fontSize: 17, lineHeight: 1.8, color: 'rgba(255,255,255,0.55)' }}>
-              Lumen is purpose-built for solo and small-group practices. Our AI reads your clinical notes,
+              Relio is purpose-built for solo and small-group practices. Our AI reads your clinical notes,
               generates precise codes, submits clean claims, and fights every denial — so you never have to.
             </p>
 
@@ -75,7 +75,7 @@ export default function About() {
               <div style={{ fontSize: 48, color: 'var(--indigo-pale)', lineHeight: 1, marginBottom: 20, opacity: 0.6 }}>"</div>
               <p style={{ fontSize: 18, lineHeight: 1.75, color: 'rgba(255,255,255,0.82)', fontStyle: 'italic', marginBottom: 32 }}>
                 I used to spend three evenings a week reviewing billing reports.
-                Lumen handles everything — coding, submissions, follow-ups. My collections
+                Relio handles everything — coding, submissions, follow-ups. My collections
                 went up 28% in the first quarter and I haven't touched a claim since.
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>

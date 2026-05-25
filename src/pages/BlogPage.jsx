@@ -91,7 +91,7 @@ export default function BlogPage() {
       {/* Header */}
       <div style={{ background: 'var(--surface)', padding: '80px 0 64px', borderBottom: '1px solid var(--border)' }}>
         <div className="container" style={{ maxWidth: 720, textAlign: 'center' }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--indigo-pale)', marginBottom: 16 }}>Lumen Journal</div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--indigo-pale)', marginBottom: 16 }}>Relio Journal</div>
           <h1 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff', marginBottom: 16 }}>
             Insights for independent practices
           </h1>

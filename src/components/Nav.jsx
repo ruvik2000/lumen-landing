@@ -50,7 +50,7 @@ export default function Nav() {
       >
         {/* Logo */}
         <Link to="/" style={{ fontWeight: 900, fontSize: 16, letterSpacing: '0.08em', color: logoColor, transition: 'color 0.3s' }}>
-          LUMEN
+          RELIO
         </Link>
 
         {/* Desktop links */}

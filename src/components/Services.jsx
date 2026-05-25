@@ -15,7 +15,7 @@ const SERVICES = [
     icon: '✈️',
     title: 'Automated Claims',
     description:
-      'Lumen submits clean claims directly to 500+ payers — electronic and paper — with real-time status tracking and instant denial alerts in your dashboard.',
+      'Relio submits clean claims directly to 500+ payers — electronic and paper — with real-time status tracking and instant denial alerts in your dashboard.',
     bullets: ['Same-day submission', '500+ payer EDI connections', 'Real-time ERA/EOB reconciliation'],
     gradient: 'linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%)',
     glow: 'rgba(14,165,233,0.2)',

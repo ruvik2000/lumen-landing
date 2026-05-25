@@ -40,15 +40,15 @@ const COMPETITORS = [
 ]
 
 const FEATURE_ROWS = [
-  { label: 'AI-generated ICD-10 / CPT coding', lumen: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: true },
-  { label: 'Automatic denial appeals', lumen: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: true },
-  { label: 'Same-day claim submission', lumen: true, tebra: true, amd: true, athena: true, drchrono: false, adonis: true },
-  { label: 'Solo practice pricing', lumen: true, tebra: true, amd: false, athena: false, drchrono: true, adonis: false },
-  { label: '< 14-day onboarding', lumen: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: false },
-  { label: 'Named account manager', lumen: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: true },
-  { label: 'No long-term contracts', lumen: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: false },
-  { label: 'Patient billing & portal', lumen: true, tebra: true, amd: true, athena: true, drchrono: true, adonis: false },
-  { label: 'SOC 2 Type II certified', lumen: true, tebra: true, amd: true, athena: true, drchrono: false, adonis: true },
+  { label: 'AI-generated ICD-10 / CPT coding', relio: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: true },
+  { label: 'Automatic denial appeals', relio: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: true },
+  { label: 'Same-day claim submission', relio: true, tebra: true, amd: true, athena: true, drchrono: false, adonis: true },
+  { label: 'Solo practice pricing', relio: true, tebra: true, amd: false, athena: false, drchrono: true, adonis: false },
+  { label: '< 14-day onboarding', relio: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: false },
+  { label: 'Named account manager', relio: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: true },
+  { label: 'No long-term contracts', relio: true, tebra: false, amd: false, athena: false, drchrono: false, adonis: false },
+  { label: 'Patient billing & portal', relio: true, tebra: true, amd: true, athena: true, drchrono: true, adonis: false },
+  { label: 'SOC 2 Type II certified', relio: true, tebra: true, amd: true, athena: true, drchrono: false, adonis: true },
 ]
 
 const pageVariants = {
@@ -75,9 +75,9 @@ export default function ComparePage() {
       <div style={{ background: 'var(--surface)', padding: '80px 0 64px', borderBottom: '1px solid var(--border)' }}>
         <div className="container" style={{ maxWidth: 800, textAlign: 'center' }}>
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--indigo-pale)', marginBottom: 16 }}>Compare</div>
-          <h1 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff', marginBottom: 16 }}>How Lumen compares</h1>
+          <h1 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.03em', color: '#fff', marginBottom: 16 }}>How Relio compares</h1>
           <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, maxWidth: 560, margin: '0 auto' }}>
-            We think you should choose based on the facts. Here's an honest look at how Lumen stacks up against the alternatives.
+            We think you should choose based on the facts. Here's an honest look at how Relio stacks up against the alternatives.
           </p>
         </div>
       </div>
@@ -95,7 +95,7 @@ export default function ComparePage() {
               <thead>
                 <tr>
                   <th style={{ textAlign: 'left', padding: '12px 20px', fontSize: 13, color: 'rgba(255,255,255,0.35)', fontWeight: 600, borderBottom: '1px solid var(--border)' }}>Feature</th>
-                  {['Lumen', 'Tebra', 'AdvancedMD', 'athena', 'DrChrono', 'Adonis'].map((h, i) => (
+                  {['Relio', 'Tebra', 'AdvancedMD', 'athena', 'DrChrono', 'Adonis'].map((h, i) => (
                     <th key={h} style={{
                       textAlign: 'center', padding: '12px 16px',
                       fontSize: 13, fontWeight: 700,
@@ -112,7 +112,7 @@ export default function ComparePage() {
                 {FEATURE_ROWS.map((row, i) => (
                   <tr key={row.label} style={{ background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
                     <td style={{ padding: '14px 20px', fontSize: 14, color: 'rgba(255,255,255,0.65)', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>{row.label}</td>
-                    {[row.lumen, row.tebra, row.amd, row.athena, row.drchrono, row.adonis].map((val, j) => (
+                    {[row.relio, row.tebra, row.amd, row.athena, row.drchrono, row.adonis].map((val, j) => (
                       <td key={j} style={{ textAlign: 'center', padding: '14px 16px', borderBottom: '1px solid rgba(255,255,255,0.03)', background: j === 0 ? 'rgba(99,102,241,0.04)' : 'transparent' }}>
                         <Check yes={val} />
                       </td>

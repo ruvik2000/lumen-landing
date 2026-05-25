@@ -5,7 +5,7 @@ const SECTIONS = [
   {
     eyebrow: 'AI Coding',
     title: 'From clinical note to billable code — in seconds',
-    body: 'Lumen\'s coding engine processes your encounter documentation the moment you close a note. It extracts diagnoses, procedures, modifiers, and place-of-service details — cross-referencing payer rules to ensure every code will clear. No template mapping. No coder bottleneck.',
+    body: 'Relio\'s coding engine processes your encounter documentation the moment you close a note. It extracts diagnoses, procedures, modifiers, and place-of-service details — cross-referencing payer rules to ensure every code will clear. No template mapping. No coder bottleneck.',
     bullets: ['Reads SOAP notes, voice transcripts, and structured EHR data', 'Automatic modifer (25, 59, GT) detection', 'Flags under-coded or upcoded visits before submission'],
     visual: <CodingVisual />,
     flip: false,
@@ -21,7 +21,7 @@ const SECTIONS = [
   {
     eyebrow: 'Denial Management',
     title: 'Every denial answered. Automatically.',
-    body: 'When a claim is denied, Lumen classifies the reason, generates a tailored appeal letter, and resubmits — all without a human touching it. For edge cases that need expert review, we escalate to our certified billing team within 4 hours.',
+    body: 'When a claim is denied, Relio classifies the reason, generates a tailored appeal letter, and resubmits — all without a human touching it. For edge cases that need expert review, we escalate to our certified billing team within 4 hours.',
     bullets: ['AI-generated appeal letters per payer policy', 'Human escalation SLA: 4 hours', 'Full denial analytics: track trends, spot patterns'],
     visual: <DenialVisual />,
     flip: false,
