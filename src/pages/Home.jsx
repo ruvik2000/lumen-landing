@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion'
 import Hero from '../components/Hero'
-import Stats from '../components/Stats'
-import About from '../components/About'
-import Services from '../components/Services'
-import DeepDive from '../components/DeepDive'
-import Features from '../components/Features'
-import Payers from '../components/Payers'
-import BuiltFor from '../components/BuiltFor'
-import HomeFAQ from '../components/HomeFAQ'
+import TrustBar from '../components/TrustBar'
+import LiveEngine from '../components/LiveEngine'
+import Journey from '../components/Journey'
+import StackedReveal from '../components/StackedReveal'
+import Bento from '../components/Bento'
+import Metrics from '../components/Metrics'
+import Specialties from '../components/Specialties'
+import Testimonial from '../components/Testimonial'
+import FAQ from '../components/FAQ'
 import CTA from '../components/CTA'
 
 const pageVariants = {
@@ -20,14 +21,15 @@ export default function Home() {
   return (
     <motion.div variants={pageVariants} initial="initial" animate="enter" exit="exit">
       <Hero />
-      <Stats />
-      <About />
-      <Services />
-      <DeepDive />
-      <Features />
-      <Payers />
-      <BuiltFor />
-      <HomeFAQ />
+      <TrustBar />
+      <LiveEngine />
+      <Journey />
+      <StackedReveal />
+      <Bento />
+      <Metrics />
+      <Specialties />
+      <Testimonial />
+      <FAQ />
       <CTA />
     </motion.div>
   )
